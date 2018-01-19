@@ -1,18 +1,15 @@
 exports.up = function(knex, Promise) {
-  return Promise.all([
-    knex.schema.createTable('hedgehogs', function(table) {
-      table.increments('id').primary();
-      table.string('name');
-      table.integer('hoglets');
-      table.string('allergies');
-
-      table.timestamps(true, true);
-    }),
-  ]);
+  let createQuery = `CREATE TABLE hedgehogs(
+    id SERIAL PRIMARY KEY NOT NULL,
+    name TEXT,
+    hoglets INTEGER,
+    allergies TEXT,
+    created_at TIMESTAMP
+  )`
+  return knex.raw(createQuery);
 };
 
 exports.down = function(knex, Promise) {
-  return Promise.all([
-    knex.schema.dropTable('hedgehogs'),
-  ]);
+  let dropQuery = `DROP TABLE hedgehogs`
+  return knex.raw(dropQuery);
 };
