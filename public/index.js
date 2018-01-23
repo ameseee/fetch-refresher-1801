@@ -1,9 +1,24 @@
 const getHedgehogs = () => {
   $('#hedgehog-info').html('');
   return fetch('http://localhost:3000/api/v1/invites')
-    .then((response) => response.json())
+    .then((response) => handleResponse(response))
     .then((hedgehogs) => getEachHedgehog(hedgehogs))
     .catch((error) => console.error({ error }))
+};
+
+const handleResponse = (response) => {
+  return response.json()
+    .then(json => {
+      if (!response.ok) {
+        const error = {
+          status: response.status,
+          statusText: response.statusText,
+          ...json
+        };
+        return Promise.reject(error);
+      }
+      return json;
+    });
 };
 
 const getEachHedgehog = (hedgehogs) => {
