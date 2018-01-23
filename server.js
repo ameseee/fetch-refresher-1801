@@ -20,7 +20,7 @@ app.get('/', (request, response) => {
 
 app.get('/api/v1/invites', (request, response) => {
   database('hedgehogs').select()
-    .then(hedgehogs => {
+    .then((hedgehogs) => {
       return response.status(200).json(hedgehogs);
     })
     .catch((error) => {

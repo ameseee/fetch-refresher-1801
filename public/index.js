@@ -53,6 +53,7 @@ const storeNewHedgehog = (event) => {
 const postNewHedgehog = (name, hoglets, allergies) => {
   fetch('http://localhost:3000/api/v1/invites',
     newHedgehogPayload({ name, hoglets, allergies }))
+    .then((response) => handleResponse(response))
     .then(() => getHedgehogs())
     .catch((error) => console.error({ error }))
 };
@@ -82,6 +83,7 @@ const deleteHedgehog = (hedgehogId) => {
   fetch(`http://localhost:3000/api/v1/invites/${hedgehogId}`, {
     method: 'DELETE'
   })
+  .then((response) => handleResponse(response))
   .catch((error) => console.error({ error }))
 };
 
